@@ -1,1 +1,1 @@
-export const remoteUrl: string = "http://localhost:8084"
+export const remoteUrl: string = "http://localhost:8084";

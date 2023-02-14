@@ -37,7 +37,7 @@ const Login: React.FC = () => {
             <form className="credentialsForm" name="loginForm" id="auth" onSubmit={handleLogin}>
                 <h1>Login</h1>
 
-                {/* {userState.loginError ? <h3>Error Logging In</h3> : ""} */}
+                {userState.loginError ? <h3>Invalid Email / Password</h3> : ""}
 
                 <label>Email:</label>
                 <input type="email"

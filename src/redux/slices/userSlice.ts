@@ -43,7 +43,7 @@ export const login = createAsyncThunk(
             const res = await axios.post(`${remoteUrl}/login`, user);
             console.log(res.data);
             
-            localStorage.setItem("tokwn", res.data["token"]);
+            localStorage.setItem("token", res.data["token"]);
             return res.data;
         } catch (e) {
             return thunkAPI.rejectWithValue('Incorrect username or password');

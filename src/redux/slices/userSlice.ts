@@ -25,7 +25,6 @@ const initialState: AuthState = {
 export const registerUser = createAsyncThunk(
     "register",
     async (userData: User, thunkAPI) => {
-        console.log("This is from the AsyncThunk", userData);
         try {
             const res = await axios.post(`${remoteUrl}/users`, userData);
             console.log(res.data);
@@ -94,7 +93,8 @@ export const userSlice = createSlice({
         builder.addCase(login.fulfilled, (state, action) => {
             state.isLoggedIn = true;
             state.loginError = false;
-            state.user = action.payload.user.Items[0];
+            state.user = action.payload.user;
+            console.log(action.payload.user);
             return state;
         });
         builder.addCase(login.rejected, (state) => {

@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { remoteUrl } from '../../models/URL';
-// import { addItem } from "../../redux/slices/cartSlice";
+//import { addProduct } from "../../redux/slices/cartSlice";
 import { Product } from "../../models/Product";
 import './Products.css'
+// import { AppDispatch } from '../../redux/Store';
+// import { useDispatch } from 'react-redux';
 
 
 
 const Products: React.FC = () => {
-
+    
+    //const dispatch: AppDispatch = useDispatch();
     const [products, setProducts] = useState<Product[]>([]);
     useEffect(() => {
         const getProducts = async () => {
@@ -18,6 +21,8 @@ const Products: React.FC = () => {
         }
         getProducts()
     }, [])
+
+
     
     return (
         <div className="productContainer">
@@ -32,7 +37,7 @@ const Products: React.FC = () => {
                         <span>Category: {product.category}</span>
                         <p>Price: ${product.price}</p>                       
                     </div>
-                    <button>Add to cart</button>
+                    {/* <button onClick={() => dispatch(addProduct(product))}>Add to cart</button> */}
                 </div>
             ))}
         </div>

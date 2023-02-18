@@ -25,13 +25,10 @@ const Information: React.FC = () => {
 
                 <label htmlFor="email">Email</label>
                 <input type="text" name="email" id="email" value={userState.user.email} readOnly/>
-
-                <div id="passwordChangeContainer">
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" />
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input type="password" name="confirmPassword" id="confirmPassword" />
-                </div>
                 <button id="changePasswordSubmit" type="submit">Save</button>
             </form>
         </div>

@@ -94,7 +94,6 @@ export const userSlice = createSlice({
             state.isLoggedIn = true;
             state.loginError = false;
             state.user = action.payload.user;
-            console.log(action.payload.user);
             return state;
         });
         builder.addCase(login.rejected, (state) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/Store";
 import profilePic from "../../../../assets/profile-picture.jpg";

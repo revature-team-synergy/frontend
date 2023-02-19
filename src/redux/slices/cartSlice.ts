@@ -9,20 +9,25 @@ interface CartState {
 }
 
 const cart: ICart = {
-    id: "0",
-    order: [],
-    total: 0,
-    checkout: false,
+    userID: "0",
+    products: [],
+    totalPrice: 0
 };
 
-export const checkout = createAsyncThunk("checkout", async () => {
-    console.log("Checked Out");
+export const checkout = createAsyncThunk(
+    "checkout", 
+    async (cart: ICart, thunkAPI) => {
     try {
-        const res = await axios.post(`${remoteUrl}/checkout`, cart);
-        localStorage.removeItem("cart");
-        return res;
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` },
+        };
+        console.log(cart);
+        const res = await axios.post(`${remoteUrl}/orders`, cart, config);
+        return res.data;
     } catch (e) {
         console.error(e);
+        return thunkAPI.rejectWithValue('Error Checking Out Order');
     }
 });
 
@@ -38,11 +43,11 @@ const cartSlice = createSlice({
             } else {
                 state.items.push({ ...action.payload, quantity: 1 });
             }
-            const productIndex = cart.order.findIndex((product) => product.itemID === itemID);
+            const productIndex = cart.products.findIndex((product) => product.itemID === itemID);
             if (productIndex !== -1) {
-                cart.order[productIndex].quantity++;
+                cart.products[productIndex].quantity++;
             } else {
-                cart.order.push({ ...action.payload, quantity: 1 });
+                cart.products.push({ ...action.payload, quantity: 1 });
             }
             console.log(cart);
         },
@@ -58,6 +63,12 @@ const cartSlice = createSlice({
             }
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase(checkout.fulfilled, (state, action) => {
+            state.items = [];
+            return state;
+        });
+    }
 });
 
 export const { addProduct, decreaseQuantity } = cartSlice.actions;

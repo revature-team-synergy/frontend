@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ICart } from "../../models/ICart";
 import { IProduct } from "../../models/IProduct";
-import { decreaseQuantity } from "../../redux/slices/cartSlice";
+import { checkout, decreaseQuantity } from "../../redux/slices/cartSlice";
 import { AppDispatch, RootState } from "../../redux/Store";
 import Navbar from "../Navbar/Navbar";
 
 const Cart: React.FC = () => {
     const cartItems: IProduct[] = useSelector((state: RootState) => state.cart.items);
+    const userState = useSelector((state: RootState) => state.user);
     const dispatch: AppDispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const [fullCart, setFullCart] = useState<ICart>({
+        userID: "0",
+        products: cartItems,
+        totalPrice: 0
+    });
 
     const decreaseQuantityHandler = (itemID: string) => {
         dispatch(decreaseQuantity(itemID));
     };
+
+    const checkoutHandler = () => {
+        dispatch(checkout(fullCart));
+    };
+
+    useEffect(() => {
+        if (!userState.isLoggedIn) navigate('/');
+        const totalCartPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        setFullCart({userID: "0", products: cartItems, totalPrice: totalCartPrice})
+    }, [userState.isLoggedIn, cartItems]);
 
     const cart = cartItems.map((product: IProduct) => (
         <div className="productContainer" key={product.itemID}>
@@ -34,7 +55,7 @@ const Cart: React.FC = () => {
     return (
         <div id="cartContainer">
             <Navbar />
-            <button>Checkout</button>
+            <button onClick={checkoutHandler}>Checkout</button>
             {cart}
         </div>
     );

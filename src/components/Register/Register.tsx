@@ -8,12 +8,12 @@ import "./Register.css";
 
 const Register: React.FC = () => {
     const [formValues, setFormValues] = useState<User>({
-        id: "0",
+        userID: "0",
         firstName: '',
         lastName: '',
         email: '',
         password: '',
-        userRole: ''
+        role: ''
     });
     const [confirmPassword, setConfirmPassword] = useState<string>("");
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);

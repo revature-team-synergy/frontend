@@ -23,7 +23,7 @@ const Products: React.FC = () => {
     }, [])
 
     function addToCart(product: IProduct) {
-        console.log("adding product:" + product.id)
+        console.log("adding product:" + product.itemID)
         dispatch(addProduct(product));
     }
 
@@ -32,13 +32,14 @@ const Products: React.FC = () => {
     return (
         <div className="productContainer">
             {products.map((product) => (
-                <div className="productCard" key={product.id}>
+                <div className="productCard" key={product.itemID}>
                     <div className="content">
                         <img className="img-fluid" 
                             src={`${product.imgURL}`} 
                             alt="logo"/>
                     </div>
                     <div className="content">
+                        <span>ID: {product.itemID}</span>
                         <p className='productPrice'>Name: {product.name}</p>
                         <p>Description: {product.description}</p>
                         <span>Category: {product.category}</span>

@@ -39,7 +39,7 @@ export const login = createAsyncThunk(
     'login',
     async (user: LoginUser, thunkAPI) => {
         try {
-            const res = await axios.post(`${remoteUrl}/login`, user);
+            const res = await axios.post(`${remoteUrl}/users/login`, user);
             console.log(res.data);
             
             localStorage.setItem("token", res.data["token"]);

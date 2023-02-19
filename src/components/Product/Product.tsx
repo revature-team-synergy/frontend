@@ -1,27 +1,55 @@
-import './Product.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { remoteUrl } from '../../models/URL';
+import { addProduct } from "../../redux/slices/cartSlice";
+import { IProduct } from "../../models/IProduct";
+import './Product.css'
+import { AppDispatch } from '../../redux/Store';
+import { useDispatch } from 'react-redux';
 
-const Product = (props: any) => {
-    const {imageURL, name, price, description, category, productID} = props.props
 
-    function addCartHandler(){
-        console.log(productID)
+
+const Products: React.FC = () => {
+    
+    const dispatch: AppDispatch = useDispatch();
+    const [products, setProducts] = useState<IProduct[]>([]);
+    useEffect(() => {
+        const getProducts = async () => {
+            const result = await axios.get(`${remoteUrl}/products`)
+            setProducts(result.data.Items)
+            console.log("result.entries", result.data);
+        }
+        getProducts()
+    }, [])
+
+    function addToCart(product: IProduct) {
+        console.log("adding product:" + product.id)
+        dispatch(addProduct(product));
     }
 
+
+    
     return (
-        <div className="productCard">
-            <img alt="product image" src={imageURL}
-                 width="50%"/>
-            <h4>{name}</h4>
-            <p>{description}</p>
-            <div>
-                <a className='productPrice'>${price}</a>
-                <a>{category}</a>
-            </div>
-            <p>
-                <button onClick={addCartHandler}>Add to Cart</button>
-            </p>
+        <div className="productContainer">
+            {products.map((product) => (
+                <div className="productCard" key={product.id}>
+                    <div className="content">
+                        <img className="img-fluid" 
+                            src={`${product.imgURL}`} 
+                            alt="logo"/>
+                    </div>
+                    <div className="content">
+                        <p className='productPrice'>Name: {product.name}</p>
+                        <p>Description: {product.description}</p>
+                        <span>Category: {product.category}</span>
+                        <p>Price: ${product.price}</p>                       
+                    </div>
+                    <button onClick={() => addToCart(product)}>Add to cart</button>
+                </div>
+            ))}
         </div>
     )
 }
 
-export default Product;
+
+export default Products;

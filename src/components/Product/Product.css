@@ -4,6 +4,8 @@
     max-height: 90%;
     margin: auto;
     text-align: center;
+    transition: 0.3s;
+    border-radius: 5px;
 }
 
 .productPrice {
@@ -25,4 +27,9 @@
 
 .productCard button:hover {
     opacity: 0.7;
+}
+
+.productContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }

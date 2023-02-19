@@ -17,9 +17,9 @@ const Cart: React.FC = () => {
         dispatch(removeProduct(product));
     }
 
-    const cart = allProducts.order.map((product) => (
-            <div className="productContainer">
-                <div className="productCard" key={product.id}>
+    const cart = allProducts.order.map((product, index) => (
+            <div className="productContainer" key={`${product.id}-${index}`}>
+                <div className="productCard">
                     <div className="content">
                         <img className="img-fluid" 
                             src={`${product.imgURL}`} 

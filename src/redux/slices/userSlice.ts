@@ -5,12 +5,12 @@ import { remoteUrl } from "../../models/URL";
 import { LoginUser, User } from "../../models/User";
 
 const user: User = {
-    id: "0",
+    userID: "0",
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    userRole: ""
+    role: ""
 }
 
 const initialState: AuthState = {
@@ -49,6 +49,13 @@ export const login = createAsyncThunk(
         }
     }
 );
+
+export const changeProfile = createAsyncThunk(
+    'changeProfile',
+    async (user:any)=>{
+        return user
+    }
+)
 
 export const logoutUser = createAsyncThunk(
     'logout',
@@ -109,6 +116,11 @@ export const userSlice = createSlice({
             state.user = user;
             return state;
         });
+
+        builder.addCase(changeProfile.fulfilled, (state, action)=>{
+            state.user = action.payload;
+            return state
+        })
     }
 });
 

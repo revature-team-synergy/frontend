@@ -1,10 +1,10 @@
 export interface User {
-    id: string;
+    userID: string;
     firstName: string;
     lastName: string;
     email: string;
     password: string;
-    userRole: string;
+    role: string;
 }
 
 export interface LoginUser {

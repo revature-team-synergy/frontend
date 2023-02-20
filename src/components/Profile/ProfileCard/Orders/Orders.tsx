@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {remoteUrl} from '../../../../models/URL';
+import { Order } from "../../../../models/Order";
+import { IProduct } from "../../../../models/IProduct";
+import "./Orders.css";
 
 const Orders: React.FC = () => {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState<Order[]>([]);
 
     useEffect(() => {
         const getOrders = async () => {
@@ -18,18 +21,18 @@ const Orders: React.FC = () => {
 
     }, [])
 
-    function showAllOrders(orders: any) {
-        return orders.map((item: any, index: any) => {
+    function showAllOrders(orders: Order[]) {
+        return orders.map((order: Order) => {
             return (
-                <div>
-                    <h4>{`Order ${index + 1}`}</h4>
-                    {item.products.map((item: any) => {
+                <div id="orderCard" key={order.orderID}>
+                    {order.products.map((product: IProduct) => {
                         return (
-                            <div>
-                                <h6>{item.name}</h6>
+                            <div key={product.itemID}>
+                                <h6>{product.quantity} {product.name}</h6>
                             </div>
                         )
                     })}
+                    <div id="orderPrice">${order.totalPrice.toFixed(2)}</div>
                 </div>
             )
         })

@@ -1,0 +1,21 @@
+#checkoutButton {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    width: 150px;
+    background-color: #444444;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    transition: font-size 0.3s ease-in-out;
+}
+
+#checkoutButton:hover {
+    background-color: #b1b1b1;
+    color: #01189e;
+    font-size: 18px;
+}

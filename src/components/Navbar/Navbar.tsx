@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../redux/slices/userSlice";
 import { AppDispatch } from "../../redux/Store";
 import "./Navbar.css";
@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
 
     return (
         <div id="navbarContainer">
-            <div id="logo">Logo</div>
+            <Link id="logo" to={"/home"}>Synergy</Link>
             <div id="navbarLinksContainer">
                 <div id="homeLink"
                     onClick={() => navigate("/home")}

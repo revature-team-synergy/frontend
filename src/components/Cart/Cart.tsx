@@ -6,6 +6,7 @@ import { IProduct } from "../../models/IProduct";
 import { checkout, decreaseQuantity } from "../../redux/slices/cartSlice";
 import { AppDispatch, RootState } from "../../redux/Store";
 import Navbar from "../Navbar/Navbar";
+import "./Cart.css";
 
 const Cart: React.FC = () => {
     const cartItems: IProduct[] = useSelector((state: RootState) => state.cart.items);
@@ -35,7 +36,7 @@ const Cart: React.FC = () => {
     }, [userState.isLoggedIn, cartItems]);
 
     const cart = cartItems.map((product: IProduct) => (
-        <div className="productContainer" key={product.itemID}>
+        <div key={product.itemID}>
             <div className="productCard">
                 <div className="content">
                     <img className="img-fluid" src={product.imgURL} alt={product.name} />
@@ -53,10 +54,13 @@ const Cart: React.FC = () => {
     ));
 
     return (
-        <div id="cartContainer">
+        <div>
             <Navbar />
-            <button onClick={checkoutHandler}>Checkout</button>
-            {cart}
+            <button id="checkoutButton" onClick={checkoutHandler}>Checkout ${cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}</button>
+            <div className="productContainer">
+                {cart}
+            </div>
+            
         </div>
     );
 };

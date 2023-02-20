@@ -1,31 +1,43 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { ICart } from '../../../../models/ICart';
-import { IProduct } from '../../../../models/IProduct';
-import { remoteUrl } from '../../../../models/URL';
+import React, {useEffect, useState} from 'react';
+import {remoteUrl} from '../../../../models/URL';
 
 const Orders: React.FC = () => {
-    const [orders, setOrders] = useState<IProduct[]>([]);
+    const [orders, setOrders] = useState([]);
+
     useEffect(() => {
         const getOrders = async () => {
             const token = localStorage.getItem("token");
             const config = {
-                headers: { Authorization: `Bearer ${token}` },
+                headers: {Authorization: `Bearer ${token}`},
             };
             const result = await axios.get(`${remoteUrl}/orders/`, config)
-            setOrders(result.data.Items)
-            console.log("result.entries", result.data);
+            setOrders(result.data)
         }
         getOrders()
-        console.log(orders)
-        orders.forEach((item) => (console.log(item)))
+
     }, [])
 
-    
+    function showAllOrders(orders: any) {
+        return orders.map((item: any, index: any) => {
+            return (
+                <div>
+                    <h4>{`Order ${index + 1}`}</h4>
+                    {item.products.map((item: any) => {
+                        return (
+                            <div>
+                                <h6>{item.name}</h6>
+                            </div>
+                        )
+                    })}
+                </div>
+            )
+        })
+    }
 
     return (
         <div className="productContainer">
-
+            {showAllOrders(orders)}
         </div>
     )
 }

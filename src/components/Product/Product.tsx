@@ -33,24 +33,23 @@ const Products: React.FC = () => {
         <div className="productContainer">
             {products.map((product) => (
                 <div className="productCard" key={product.itemID}>
-                    <div className="content">
-                        <img className="img-fluid" 
-                            src={`${product.imgURL}`} 
-                            alt="logo"/>
-                    </div>
-                    <div className="content">
-                        <span>ID: {product.itemID}</span>
-                        <p className='productPrice'>Name: {product.name}</p>
-                        <p>Description: {product.description}</p>
-                        <span>Category: {product.category}</span>
-                        <p>Price: ${product.price}</p>                       
-                    </div>
-                    <button onClick={() => addToCart(product)}>Add to cart</button>
+                <div className="content">
+                    <img className="img-fluid"
+                    src={`${product.imgURL}`}
+                    alt="logo" />
+                </div>
+                <div className="content">
+                    <span><strong>ID:</strong> {product.itemID}</span>
+                    <p className='productPrice'><strong>Name:</strong> {product.name}</p>
+                    <p><strong>Description:</strong> {product.description}</p>
+                    <span><strong>Category:</strong> {product.category}</span>
+                    <p><strong>Price:</strong> ${product.price}</p>
+                </div>
+                <button onClick={() => addToCart(product)}>Add to cart</button>
                 </div>
             ))}
         </div>
     )
 }
-
-
+    
 export default Products;
